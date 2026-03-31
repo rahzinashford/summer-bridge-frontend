@@ -1,172 +1,205 @@
-{% extends "base.html" %}
-{% block title %}You're Registered! · Summer Bridge Camp{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block body %}
-<div class="waiting-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sign Up · Summer Bridge Camp</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./static/style.css" />
+</head>
 
-  <!-- Decorative background icons -->
-  <span class="edu-decor material-symbols-outlined" style="font-size:8rem;top:3%;left:-22px;transform:rotate(15deg);opacity:0.06">menu_book</span>
-  <span class="edu-decor material-symbols-outlined" style="font-size:5rem;top:40%;right:-14px;transform:rotate(-20deg);opacity:0.06">science</span>
-  <span class="edu-decor material-symbols-outlined" style="font-size:6rem;bottom:10%;left:-18px;transform:rotate(35deg);opacity:0.06">calculate</span>
-  <span class="edu-decor material-symbols-outlined" style="font-size:4rem;bottom:30%;right:-8px;opacity:0.06">palette</span>
+<body>
+  <div class="waiting-page">
 
-  <main class="waiting-main">
-    <div class="waiting-card">
+    <!-- Decorative background icons -->
+    <span class="edu-decor material-symbols-outlined"
+      style="font-size:8rem;top:3%;left:-22px;transform:rotate(15deg);opacity:0.06">menu_book</span>
+    <span class="edu-decor material-symbols-outlined"
+      style="font-size:5rem;top:40%;right:-14px;transform:rotate(-20deg);opacity:0.06">science</span>
+    <span class="edu-decor material-symbols-outlined"
+      style="font-size:6rem;bottom:10%;left:-18px;transform:rotate(35deg);opacity:0.06">calculate</span>
+    <span class="edu-decor material-symbols-outlined"
+      style="font-size:4rem;bottom:30%;right:-8px;opacity:0.06">palette</span>
 
-      <!-- ── Success banner ── -->
-      <div class="waiting-hero">
-        <div class="hero-bubble hero-bubble-1"></div>
-        <div class="hero-bubble hero-bubble-2"></div>
-        <div class="hero-bubble hero-bubble-3"></div>
+    <main class="waiting-main">
+      <div class="waiting-card">
 
-        <!-- Animated checkmark ring -->
-        <div class="waiting-check-ring">
-          <span class="material-symbols-outlined waiting-check-icon" style="font-variation-settings:'FILL' 1">check_circle</span>
-        </div>
+        <!-- ── Success banner ── -->
+        <div class="waiting-hero">
+          <div class="hero-bubble hero-bubble-1"></div>
+          <div class="hero-bubble hero-bubble-2"></div>
+          <div class="hero-bubble hero-bubble-3"></div>
 
-        <div class="waiting-hero-badge">
-          <span class="material-symbols-outlined" style="font-size:15px;font-variation-settings:'FILL' 1">auto_awesome</span>
-          Registration Confirmed!
-        </div>
-
-        <h1 class="waiting-hero-title">You're In,<br>{{ student.name.split()[0] }}! 🎉</h1>
-        <p class="waiting-hero-sub">Summer Bridge Camp · Grade {{ student.student_class }}</p>
-      </div>
-
-      <!-- ── Body content ── -->
-      <div class="waiting-body">
-
-        <!-- Camp starts notice -->
-        <div class="waiting-starts-card">
-          <div class="waiting-starts-left">
-            <span class="material-symbols-outlined" style="font-size:1.6rem;color:#18cb96;font-variation-settings:'FILL' 1">event</span>
+          <!-- Animated checkmark ring -->
+          <div class="waiting-check-ring">
+            <span class="material-symbols-outlined waiting-check-icon"
+              style="font-variation-settings:'FILL' 1">check_circle</span>
           </div>
-          <div class="waiting-starts-info">
-            <p class="waiting-starts-label">Camp Begins On</p>
-            <p class="waiting-starts-date">{{ camp_start_date }}</p>
-            <p class="waiting-starts-sub">{{ camp_start_day }}</p>
+
+          <div class="waiting-hero-badge">
+            <span class="material-symbols-outlined"
+              style="font-size:15px;font-variation-settings:'FILL' 1">auto_awesome</span>
+            Registration Confirmed!
           </div>
+
+          <h1 class="waiting-hero-title">You're In,<br>{{ student.name.split()[0] }}! 🎉</h1>
+          <p class="waiting-hero-sub">Summer Bridge Camp · Grade {{ student.student_class }}</p>
         </div>
 
-        <!-- Countdown timer -->
-        <div class="waiting-countdown-wrap">
-          <p class="waiting-countdown-title">
-            <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:-3px;color:#18cb96">timer</span>
-            Starting in
+        <!-- ── Body content ── -->
+        <div class="waiting-body">
+
+          <!-- Camp starts notice -->
+          <div class="waiting-starts-card">
+            <div class="waiting-starts-left">
+              <span class="material-symbols-outlined"
+                style="font-size:1.6rem;color:#18cb96;font-variation-settings:'FILL' 1">event</span>
+            </div>
+            <div class="waiting-starts-info">
+              <p class="waiting-starts-label">Camp Begins On</p>
+              <p class="waiting-starts-date">{{ camp_start_date }}</p>
+              <p class="waiting-starts-sub">{{ camp_start_day }}</p>
+            </div>
+          </div>
+
+          <!-- Countdown timer -->
+          <div class="waiting-countdown-wrap">
+            <p class="waiting-countdown-title">
+              <span class="material-symbols-outlined"
+                style="font-size:1rem;vertical-align:-3px;color:#18cb96">timer</span>
+              Starting in
+            </p>
+            <div class="waiting-countdown" id="countdown">
+              <div class="countdown-block">
+                <span class="countdown-num" id="cd-days">--</span>
+                <span class="countdown-label">Days</span>
+              </div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-block">
+                <span class="countdown-num" id="cd-hours">--</span>
+                <span class="countdown-label">Hours</span>
+              </div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-block">
+                <span class="countdown-num" id="cd-mins">--</span>
+                <span class="countdown-label">Mins</span>
+              </div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-block">
+                <span class="countdown-num" id="cd-secs">--</span>
+                <span class="countdown-label">Secs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- What's included -->
+          <div class="waiting-subjects-wrap">
+            <p class="waiting-section-label">
+              <span class="material-symbols-outlined" style="font-size:0.9rem;color:#94a3b8">grid_view</span>
+              What you'll learn
+            </p>
+            <div class="waiting-subjects-grid">
+              <div class="waiting-subj-chip" style="background:#eff6ff;color:#3b82f6;border-color:#bfdbfe;">
+                <span class="material-symbols-outlined"
+                  style="font-size:1rem;font-variation-settings:'FILL' 1">functions</span>
+                Math
+              </div>
+              <div class="waiting-subj-chip" style="background:#ecfdf5;color:#10b981;border-color:#a7f3d0;">
+                <span class="material-symbols-outlined"
+                  style="font-size:1rem;font-variation-settings:'FILL' 1">science</span>
+                Science
+              </div>
+              <div class="waiting-subj-chip" style="background:#f5f3ff;color:#8b5cf6;border-color:#ddd6fe;">
+                <span class="material-symbols-outlined"
+                  style="font-size:1rem;font-variation-settings:'FILL' 1">terminal</span>
+                IT
+              </div>
+              <div class="waiting-subj-chip" style="background:#fff7ed;color:#f97316;border-color:#fed7aa;">
+                <span class="material-symbols-outlined"
+                  style="font-size:1rem;font-variation-settings:'FILL' 1">palette</span>
+                Art
+              </div>
+              <div class="waiting-subj-chip" style="background:#fff1f2;color:#f43f5e;border-color:#fecdd3;">
+                <span class="material-symbols-outlined"
+                  style="font-size:1rem;font-variation-settings:'FILL' 1">public</span>
+                Social Science
+              </div>
+            </div>
+          </div>
+
+          <!-- Info pills -->
+          <div class="waiting-info-row">
+            <div class="waiting-info-pill">
+              <span class="material-symbols-outlined"
+                style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">school</span>
+              <span>40 Lessons</span>
+            </div>
+            <div class="waiting-info-pill">
+              <span class="material-symbols-outlined"
+                style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">quiz</span>
+              <span>Live Quizzes</span>
+            </div>
+            <div class="waiting-info-pill">
+              <span class="material-symbols-outlined"
+                style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">emoji_events</span>
+              <span>Earn Badges</span>
+            </div>
+          </div>
+
+          <!-- WhatsApp reminder note -->
+          <div class="waiting-whatsapp-note">
+            <span class="material-symbols-outlined"
+              style="font-size:1.1rem;color:#25d366;font-variation-settings:'FILL' 1">chat</span>
+            <p>We'll send your class link on<br><strong>WhatsApp before camp starts</strong></p>
+          </div>
+
+          <!-- Footer -->
+          <p class="waiting-footer-note">
+            <span class="material-symbols-outlined"
+              style="font-size:13px;color:#18cb96;vertical-align:-2px">verified</span>
+            Free · Summer Bridge Camp · No account needed
           </p>
-          <div class="waiting-countdown" id="countdown">
-            <div class="countdown-block">
-              <span class="countdown-num" id="cd-days">--</span>
-              <span class="countdown-label">Days</span>
-            </div>
-            <div class="countdown-sep">:</div>
-            <div class="countdown-block">
-              <span class="countdown-num" id="cd-hours">--</span>
-              <span class="countdown-label">Hours</span>
-            </div>
-            <div class="countdown-sep">:</div>
-            <div class="countdown-block">
-              <span class="countdown-num" id="cd-mins">--</span>
-              <span class="countdown-label">Mins</span>
-            </div>
-            <div class="countdown-sep">:</div>
-            <div class="countdown-block">
-              <span class="countdown-num" id="cd-secs">--</span>
-              <span class="countdown-label">Secs</span>
-            </div>
-          </div>
+
         </div>
-
-        <!-- What's included -->
-        <div class="waiting-subjects-wrap">
-          <p class="waiting-section-label">
-            <span class="material-symbols-outlined" style="font-size:0.9rem;color:#94a3b8">grid_view</span>
-            What you'll learn
-          </p>
-          <div class="waiting-subjects-grid">
-            <div class="waiting-subj-chip" style="background:#eff6ff;color:#3b82f6;border-color:#bfdbfe;">
-              <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1">functions</span>
-              Math
-            </div>
-            <div class="waiting-subj-chip" style="background:#ecfdf5;color:#10b981;border-color:#a7f3d0;">
-              <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1">science</span>
-              Science
-            </div>
-            <div class="waiting-subj-chip" style="background:#f5f3ff;color:#8b5cf6;border-color:#ddd6fe;">
-              <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1">terminal</span>
-              IT
-            </div>
-            <div class="waiting-subj-chip" style="background:#fff7ed;color:#f97316;border-color:#fed7aa;">
-              <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1">palette</span>
-              Art
-            </div>
-            <div class="waiting-subj-chip" style="background:#fff1f2;color:#f43f5e;border-color:#fecdd3;">
-              <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1">public</span>
-              Social Science
-            </div>
-          </div>
-        </div>
-
-        <!-- Info pills -->
-        <div class="waiting-info-row">
-          <div class="waiting-info-pill">
-            <span class="material-symbols-outlined" style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">school</span>
-            <span>40 Lessons</span>
-          </div>
-          <div class="waiting-info-pill">
-            <span class="material-symbols-outlined" style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">quiz</span>
-            <span>Live Quizzes</span>
-          </div>
-          <div class="waiting-info-pill">
-            <span class="material-symbols-outlined" style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">emoji_events</span>
-            <span>Earn Badges</span>
-          </div>
-        </div>
-
-        <!-- WhatsApp reminder note -->
-        <div class="waiting-whatsapp-note">
-          <span class="material-symbols-outlined" style="font-size:1.1rem;color:#25d366;font-variation-settings:'FILL' 1">chat</span>
-          <p>We'll send your class link on<br><strong>WhatsApp before camp starts</strong></p>
-        </div>
-
-        <!-- Footer -->
-        <p class="waiting-footer-note">
-          <span class="material-symbols-outlined" style="font-size:13px;color:#18cb96;vertical-align:-2px">verified</span>
-          Free · Summer Bridge Camp · No account needed
-        </p>
-
       </div>
-    </div>
-  </main>
-</div>
-{% endblock %}
+    </main>
+  </div>
 
-{% block scripts %}
-<script>
-  const TARGET = new Date("{{ camp_start_iso }}T09:00:00").getTime();
 
-  function tick() {
-    const now  = Date.now();
-    const diff = TARGET - now;
+  <script>
+    const TARGET = new Date("{{ camp_start_iso }}T09:00:00").getTime();
 
-    if (diff <= 0) {
-      document.getElementById("countdown").innerHTML =
-        '<p style="font-family:\'Fredoka\',sans-serif;font-size:1.3rem;font-weight:700;color:#18cb96;margin:0;">🎉 Camp has started!</p>';
-      return;
+    function tick() {
+      const now = Date.now();
+      const diff = TARGET - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML =
+          '<p style="font-family:\'Fredoka\',sans-serif;font-size:1.3rem;font-weight:700;color:#18cb96;margin:0;">🎉 Camp has started!</p>';
+        return;
+      }
+
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+
+      document.getElementById("cd-days").textContent = String(d).padStart(2, "0");
+      document.getElementById("cd-hours").textContent = String(h).padStart(2, "0");
+      document.getElementById("cd-mins").textContent = String(m).padStart(2, "0");
+      document.getElementById("cd-secs").textContent = String(s).padStart(2, "0");
     }
 
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
+    tick();
+    setInterval(tick, 1000);
+  </script>
 
-    document.getElementById("cd-days").textContent  = String(d).padStart(2, "0");
-    document.getElementById("cd-hours").textContent = String(h).padStart(2, "0");
-    document.getElementById("cd-mins").textContent  = String(m).padStart(2, "0");
-    document.getElementById("cd-secs").textContent  = String(s).padStart(2, "0");
-  }
+</body>
 
-  tick();
-  setInterval(tick, 1000);
-</script>
-{% endblock %}
+</html>
