@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson.title }} · {{ subject.name }} · Summer Bridge Camp{% endblock %}
+
+{% block body %}
+<div class="lesson-page">
+
+  <!-- Sticky Header -->
+  <header class="lesson-header">
+    <a href="/lessons/{{ subject_slug }}" class="icon-btn">
+      <span class="material-symbols-outlined" style="font-size:1.25rem">arrow_back</span>
+    </a>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;min-width:0;padding:0 8px;">
+      <span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:{{ subject.color }};font-family:'Lexend',sans-serif;">
+        {{ subject.name }}
+      </span>
+      <h2 style="font-size:0.9rem;font-weight:700;color:#111827;font-family:'Lexend',sans-serif;margin:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;max-width:200px;">
+        {{ lesson.title }}
+      </h2>
+    </div>
+    <div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:{{ subject.bg }};color:{{ subject.color }}">
+      <span class="material-symbols-outlined" style="font-size:1.2rem;font-variation-settings:'FILL' 1">{{ subject.icon }}</span>
+    </div>
+  </header>
+
+  <!-- Scrollable main content -->
+  <main class="lesson-main">
+
+    <!-- Video Section -->
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px;">
+        <h3 style="font-weight:700;font-size:0.82rem;color:#475569;font-family:'Lexend',sans-serif;margin:0;">Video Lesson</h3>
+        <span style="font-size:0.75rem;font-weight:700;color:{{ subject.color }};font-family:'Lexend',sans-serif;">Lesson {{ lesson_num }} of {{ total_lessons }}</span>
+      </div>
+      <div class="video-placeholder">
+        <div class="video-bg" style="background:linear-gradient(135deg,#0f172a 0%,{{ subject.color }}40 50%,#0f172a 100%)"></div>
+        <div class="video-gradient"></div>
+        <!-- Lesson overlay -->
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:5;">
+          <div style="width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;background:{{ subject.color }};box-shadow:0 4px 20px {{ subject.color }}66;">
+            <span class="material-symbols-outlined" style="font-size:1.5rem;color:#fff;font-variation-settings:'FILL' 1">{{ subject.icon }}</span>
+          </div>
+          <p style="color:rgba(255,255,255,0.85);font-size:0.75rem;font-weight:600;font-family:'Lexend',sans-serif;margin:0;max-width:140px;">{{ lesson.title }}</p>
+        </div>
+        <button class="play-btn" style="background:{{ subject.color }};box-shadow:0 4px 20px {{ subject.color }}66;">
+          <span class="material-symbols-outlined" style="font-size:2rem;line-height:1;font-variation-settings:'FILL' 1">play_arrow</span>
+        </button>
+        <div class="video-controls">
+          <div class="progress-bar-wrap">
+            <div class="progress-fill" style="background:{{ subject.color }};box-shadow:0 0 10px {{ subject.color }}66"></div>
+            <div class="progress-thumb" style="border-color:{{ subject.color }}"></div>
+            <div class="progress-empty"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <p style="color:#fff;font-size:0.7rem;font-weight:700;margin:0;">00:00</p>
+            <p style="color:#fff;font-size:0.7rem;font-weight:700;margin:0;">12:45</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz Section -->
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px;">
+        <h3 style="font-weight:700;font-size:0.82rem;color:#475569;font-family:'Lexend',sans-serif;margin:0;">Quick Quiz</h3>
+        <span id="quiz-progress-label" style="font-size:0.75rem;font-weight:700;color:{{ subject.color }};font-family:'Lexend',sans-serif;">Question 1 of {{ questions|length }}</span>
+      </div>
+
+      <div class="quiz-card" id="quiz-section">
+        <!-- Question -->
+        <div>
+          <span class="quiz-badge" id="quiz-badge"
+            style="background:{{ subject.color }}1a;color:{{ subject.color }}">
+            Question <span id="q-num">1</span> of {{ questions|length }}
+          </span>
+          <p id="quiz-question" style="font-size:0.95rem;font-weight:700;color:#111827;font-family:'Lexend',sans-serif;margin:8px 0 0;line-height:1.5;"></p>
+        </div>
+
+        <!-- Options -->
+        <div id="quiz-options" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+        <!-- Check button -->
+        <div id="check-btn-wrap">
+          <button class="btn-check" id="check-btn"
+            style="background:{{ subject.color }};box-shadow:0 4px 16px {{ subject.color }}44;"
+            onclick="checkAnswer()">
+            <span>Check Answer</span>
+            <span class="material-symbols-outlined" style="font-size:1.1rem">arrow_forward</span>
+          </button>
+        </div>
+
+        <!-- Completion panel (hidden initially) -->
+        <div id="complete-panel" style="display:none;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:8px 0;">
+          <div style="width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;background:{{ subject.color }}1a;">
+            <span class="material-symbols-outlined" style="font-size:2.5rem;color:{{ subject.color }};font-variation-settings:'FILL' 1">emoji_events</span>
+          </div>
+          <p style="font-size:1.15rem;font-weight:700;color:#111827;font-family:'Fredoka',sans-serif;margin:0;">Quiz Complete!</p>
+          <p style="font-size:0.85rem;color:#6b7280;font-family:'Lexend',sans-serif;margin:0;" id="score-label"></p>
+          {% if lesson_num < total_lessons %}
+          <a href="/{{ subject_slug }}-{{ lesson_num + 1 }}" class="btn-check"
+            style="background:{{ subject.color }};box-shadow:0 4px 16px {{ subject.color }}44;text-decoration:none;width:100%;">
+            <span>Next Lesson</span>
+            <span class="material-symbols-outlined" style="font-size:1.1rem">arrow_forward</span>
+          </a>
+          {% else %}
+          <a href="/subjects" class="btn-check"
+            style="background:{{ subject.color }};box-shadow:0 4px 16px {{ subject.color }}44;text-decoration:none;width:100%;">
+            <span>All Subjects</span>
+            <span class="material-symbols-outlined" style="font-size:1.1rem">school</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Sticky Footer — Lesson progress bar -->
+  <footer class="lesson-footer">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <p style="font-size:0.7rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.08em;font-family:'Lexend',sans-serif;margin:0;">Lesson Progress</p>
+      <p style="font-size:0.75rem;font-weight:700;color:{{ subject.color }};font-family:'Lexend',sans-serif;margin:0;" id="progress-pct">
+        {{ ((lesson_num / total_lessons) * 100)|int }}% Complete
+      </p>
+    </div>
+    <div style="height:10px;width:100%;border-radius:9999px;background:#e9eef4;overflow:hidden;">
+      <div id="progress-bar"
+        style="height:100%;border-radius:9999px;width:{{ ((lesson_num / total_lessons) * 100)|int }}%;background:{{ subject.color }};box-shadow:0 0 10px {{ subject.color }}55;transition:width 1s ease;">
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Quiz data injected from Python -->
+<script>
+  const QUESTIONS = {{ questions | tojson }};
+  const SUBJECT_COLOR = "{{ subject.color }}";
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/lesson.js"></script>
+{% endblock %}

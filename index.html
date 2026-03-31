@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Sign Up · Summer Bridge Camp{% endblock %}
+
+{% block body %}
+<div class="signup-page">
+
+  <!-- Decorative bg icons -->
+  <span class="edu-decor material-symbols-outlined" style="font-size:7rem;top:4%;left:-20px;transform:rotate(15deg);opacity:0.07">menu_book</span>
+  <span class="edu-decor material-symbols-outlined" style="font-size:5rem;top:35%;right:-14px;transform:rotate(-15deg);opacity:0.07">edit</span>
+  <span class="edu-decor material-symbols-outlined" style="font-size:8rem;bottom:6%;left:-22px;transform:rotate(40deg);opacity:0.07">calculate</span>
+  <span class="edu-decor material-symbols-outlined" style="font-size:4rem;bottom:28%;right:-8px;opacity:0.07">science</span>
+
+  <main class="signup-main">
+    <div class="signup-card">
+
+      <!-- ── Hero banner ── -->
+      <div class="signup-hero">
+        <!-- Floating bubbles -->
+        <div class="hero-bubble hero-bubble-1"></div>
+        <div class="hero-bubble hero-bubble-2"></div>
+        <div class="hero-bubble hero-bubble-3"></div>
+
+        <div class="hero-badge">
+          <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 1">auto_awesome</span>
+          Free Summer Programme
+        </div>
+
+        <div class="hero-icon-ring">
+          <span class="material-symbols-outlined" style="font-size:2.2rem;font-variation-settings:'FILL' 1">school</span>
+        </div>
+
+        <h1 class="hero-title">Summer Bridge Camp</h1>
+        <p class="hero-sub">ഗ്രേഡ് 6 – 9 · Grades 6 – 9</p>
+
+        <div class="hero-subjects">
+          <span class="hero-chip"><span class="material-symbols-outlined" style="font-size:14px">functions</span>Math</span>
+          <span class="hero-chip"><span class="material-symbols-outlined" style="font-size:14px">science</span>Science</span>
+          <span class="hero-chip"><span class="material-symbols-outlined" style="font-size:14px">terminal</span>IT</span>
+          <span class="hero-chip"><span class="material-symbols-outlined" style="font-size:14px">palette</span>Art</span>
+        </div>
+      </div>
+
+      <!-- ── Form ── -->
+      <div class="signup-form-wrap">
+        <p class="form-heading">Join the Camp</p>
+        <p class="form-sub">Fill in your details to get started</p>
+
+        <form id="signup-form" novalidate>
+
+          <div class="input-group">
+            <span class="input-icon material-symbols-outlined">person</span>
+            <input id="student-name" type="text" placeholder="Student Name · വിദ്യാർഥിയുടെ പേര്"
+              class="field-input" required />
+          </div>
+
+          <div class="input-group">
+            <span class="input-icon material-symbols-outlined">family_restroom</span>
+            <input id="parent-name" type="text" placeholder="Parent Name"
+              class="field-input" />
+          </div>
+
+          <div class="input-group">
+            <span class="input-icon material-symbols-outlined">smartphone</span>
+            <input id="parent-whatsapp" type="tel" placeholder="WhatsApp Number · +91 XXXXX XXXXX"
+              class="field-input" />
+          </div>
+
+          <div class="input-group">
+            <span class="input-icon material-symbols-outlined">apartment</span>
+            <input id="school-name" type="text" placeholder="School Name · വിദ്യാലയത്തിന്റെ പേര്"
+              class="field-input" />
+          </div>
+
+          <div class="input-group">
+            <span class="input-icon material-symbols-outlined">grade</span>
+            <select id="student-class" class="field-input field-select" required>
+              <option value="" disabled selected>Select Class · ക്ലാസ് തിരഞ്ഞെടുക്കുക</option>
+              <option value="6">Grade 6</option>
+              <option value="7">Grade 7</option>
+              <option value="8">Grade 8</option>
+              <option value="9">Grade 9</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-signup" id="submit-btn">
+            <span class="btn-signup-text">
+              Start Learning
+              <span style="opacity:0.75;font-weight:500;font-family:'Noto Sans Malayalam',sans-serif;font-size:0.95em"> · പഠനം ആരംഭിക്കുക</span>
+            </span>
+            <span class="btn-signup-arrow material-symbols-outlined">arrow_forward</span>
+          </button>
+
+        </form>
+
+        <p class="form-footer">
+          <span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;color:#18cb96">verified</span>
+          Free · No account needed · Start immediately
+        </p>
+      </div>
+
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/signup.js"></script>
+{% endblock %}

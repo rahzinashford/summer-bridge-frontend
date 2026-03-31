@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}Rewards · Summer Bridge Camp{% endblock %}
+
+{% block body %}
+<div class="rewards-page">
+
+  <!-- ── Sticky Top Bar ── -->
+  <header class="subjects-topbar" style="background:linear-gradient(135deg,#d97706 0%,#f59e0b 100%);box-shadow:0 2px 12px rgba(245,158,11,0.28);">
+    <div class="subjects-topbar-inner">
+      <div class="topbar-brand">
+        <a href="/subjects" class="topbar-back-btn">
+          <span class="material-symbols-outlined" style="font-size:1.2rem">arrow_back</span>
+        </a>
+        <div class="topbar-logo" style="background:rgba(255,255,255,0.22);border-color:rgba(255,255,255,0.35);">
+          <span class="material-symbols-outlined" style="font-size:1.2rem;color:#fff;font-variation-settings:'FILL' 1">emoji_events</span>
+        </div>
+        <span class="topbar-title">Rewards</span>
+      </div>
+      <div class="topbar-right">
+        <div class="rewards-xp-pill" style="background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.35);color:#fff;">
+          <span class="material-symbols-outlined" style="font-size:0.9rem;font-variation-settings:'FILL' 1">bolt</span>
+          0 XP
+        </div>
+        <div class="topbar-avatar" style="color:#d97706;">{{ student.name[0] | upper }}</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="subjects-main">
+    <div class="subjects-container">
+
+      <!-- ── Hero ── -->
+      <div class="rewards-page-hero">
+        <div class="rewards-trophy-ring">
+          <span class="material-symbols-outlined" style="font-size:2.6rem;color:#f59e0b;font-variation-settings:'FILL' 1">emoji_events</span>
+        </div>
+        <h1 class="rewards-page-title">Your Achievements</h1>
+        <p class="rewards-page-sub">Complete lessons &amp; quizzes to unlock badges and earn XP</p>
+
+        <!-- Progress bar -->
+        <div class="rewards-progress-wrap">
+          <div class="rewards-progress-labels">
+            <span>0 / 6 badges</span>
+            <span>0%</span>
+          </div>
+          <div class="rewards-progress-track">
+            <div class="rewards-progress-fill" style="width:0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Section label ── -->
+      <div class="subjects-section-label" style="margin-bottom:14px;">
+        <span class="material-symbols-outlined" style="font-size:0.95rem;color:#94a3b8">grid_view</span>
+        <span>All Badges</span>
+      </div>
+
+      <!-- ── Badge grid ── -->
+      <div class="rewards-grid">
+
+        <!-- Badge 1: First Step -->
+        <div class="badge-card badge-locked">
+          <div class="badge-icon-wrap" style="background:#fef3c7;">
+            <span class="material-symbols-outlined" style="font-size:1.6rem;color:#f59e0b;font-variation-settings:'FILL' 1">footprint</span>
+          </div>
+          <p class="badge-name">First Step</p>
+          <p class="badge-desc">Start your first lesson</p>
+          <div class="badge-lock">
+            <span class="material-symbols-outlined" style="font-size:0.75rem">lock</span>
+          </div>
+        </div>
+
+        <!-- Badge 2: Quiz Champ -->
+        <div class="badge-card badge-locked">
+          <div class="badge-icon-wrap" style="background:#ede9fe;">
+            <span class="material-symbols-outlined" style="font-size:1.6rem;color:#8b5cf6;font-variation-settings:'FILL' 1">psychology</span>
+          </div>
+          <p class="badge-name">Quiz Champ</p>
+          <p class="badge-desc">Ace a quiz perfectly</p>
+          <div class="badge-lock">
+            <span class="material-symbols-outlined" style="font-size:0.75rem">lock</span>
+          </div>
+        </div>
+
+        <!-- Badge 3: Explorer -->
+        <div class="badge-card badge-locked">
+          <div class="badge-icon-wrap" style="background:#ecfdf5;">
+            <span class="material-symbols-outlined" style="font-size:1.6rem;color:#10b981;font-variation-settings:'FILL' 1">travel_explore</span>
+          </div>
+          <p class="badge-name">Explorer</p>
+          <p class="badge-desc">Visit all 5 subjects</p>
+          <div class="badge-lock">
+            <span class="material-symbols-outlined" style="font-size:0.75rem">lock</span>
+          </div>
+        </div>
+
+        <!-- Badge 4: Speed Run -->
+        <div class="badge-card badge-locked">
+          <div class="badge-icon-wrap" style="background:#fff7ed;">
+            <span class="material-symbols-outlined" style="font-size:1.6rem;color:#f97316;font-variation-settings:'FILL' 1">bolt</span>
+          </div>
+          <p class="badge-name">Speed Run</p>
+          <p class="badge-desc">Finish a full lesson</p>
+          <div class="badge-lock">
+            <span class="material-symbols-outlined" style="font-size:0.75rem">lock</span>
+          </div>
+        </div>
+
+        <!-- Badge 5: Math Whiz -->
+        <div class="badge-card badge-locked">
+          <div class="badge-icon-wrap" style="background:#eff6ff;">
+            <span class="material-symbols-outlined" style="font-size:1.6rem;color:#3b82f6;font-variation-settings:'FILL' 1">functions</span>
+          </div>
+          <p class="badge-name">Math Whiz</p>
+          <p class="badge-desc">Complete all Math lessons</p>
+          <div class="badge-lock">
+            <span class="material-symbols-outlined" style="font-size:0.75rem">lock</span>
+          </div>
+        </div>
+
+        <!-- Badge 6: Camp Champion -->
+        <div class="badge-card badge-locked">
+          <div class="badge-icon-wrap" style="background:linear-gradient(135deg,#fef9c3,#fef3c7);">
+            <span class="material-symbols-outlined" style="font-size:1.6rem;color:#eab308;font-variation-settings:'FILL' 1">military_tech</span>
+          </div>
+          <p class="badge-name">Champion</p>
+          <p class="badge-desc">Complete all 20 lessons</p>
+          <div class="badge-lock">
+            <span class="material-symbols-outlined" style="font-size:0.75rem">lock</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Info note ── -->
+      <p class="rewards-note">
+        <span class="material-symbols-outlined" style="font-size:0.85rem;vertical-align:-2px;color:#18cb96">info</span>
+        Badges unlock as you complete lessons and quizzes
+      </p>
+
+      <!-- ── CTA back to subjects ── -->
+      <a href="/subjects" class="btn-rewards-cta">
+        <span class="material-symbols-outlined" style="font-size:1.2rem;font-variation-settings:'FILL' 1">menu_book</span>
+        Start Learning to Earn Badges
+        <span class="material-symbols-outlined" style="font-size:1rem">chevron_right</span>
+      </a>
+
+      <!-- ── Footer ── -->
+      <div class="subjects-footer">
+        <span class="material-symbols-outlined" style="font-size:13px;color:#18cb96;vertical-align:-2px">verified</span>
+        Summer Bridge Camp · Free Programme
+      </div>
+
+    </div>
+  </main>
+
+</div>
+{% endblock %}

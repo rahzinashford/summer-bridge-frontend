@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Choose Subject · Summer Bridge Camp{% endblock %}
+
+{% block body %}
+<div class="subjects-page">
+
+  <!-- ── Sticky Top Bar ── -->
+  <header class="subjects-topbar">
+    <div class="subjects-topbar-inner">
+      <div class="topbar-brand">
+        <div class="topbar-logo">
+          <span class="material-symbols-outlined" style="font-size:1.2rem;color:#fff;font-variation-settings:'FILL' 1">school</span>
+        </div>
+        <span class="topbar-title">Bridge Camp</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-grade">Grade {{ student.student_class }}</span>
+        <div class="topbar-avatar">{{ student.name[0] | upper }}</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="subjects-main">
+    <div class="subjects-container">
+
+      <!-- ── Welcome Hero ── -->
+      <div class="subjects-hero">
+        <p class="subjects-greeting">
+          <span class="material-symbols-outlined" style="font-size:1.1rem;vertical-align:-3px;color:#f97316;font-variation-settings:'FILL' 1">waving_hand</span>
+          Hi, <strong>{{ student.name }}</strong>!
+        </p>
+        <h1 class="subjects-headline">What will you<br>learn today?</h1>
+
+        <div class="subjects-hero-bottom">
+          <div class="subjects-stats-row">
+            <div class="stat-pill">
+              <span class="material-symbols-outlined" style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">menu_book</span>
+              <span>{{ subjects|length }} Subjects</span>
+            </div>
+            <div class="stat-dot"></div>
+            <div class="stat-pill">
+              <span class="material-symbols-outlined" style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">quiz</span>
+              <span>{{ lesson_counts.values()|sum }} Lessons</span>
+            </div>
+            <div class="stat-dot"></div>
+            <div class="stat-pill">
+              <span class="material-symbols-outlined" style="font-size:1rem;color:#18cb96;font-variation-settings:'FILL' 1">stars</span>
+              <span>Free</span>
+            </div>
+          </div>
+
+          <!-- Rewards page link button -->
+          <a href="/rewards" class="btn-rewards-scroll">
+            <span class="material-symbols-outlined" style="font-size:1rem;font-variation-settings:'FILL' 1">emoji_events</span>
+            Rewards
+            <span class="material-symbols-outlined" style="font-size:0.9rem;opacity:0.7">chevron_right</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Section label ── -->
+      <div class="subjects-section-label">
+        <span class="material-symbols-outlined" style="font-size:0.95rem;color:#94a3b8">grid_view</span>
+        <span>Pick a subject to begin</span>
+      </div>
+
+      <!-- ── Subject cards ── -->
+      <div class="subjects-list">
+        {% for slug, sub in subjects.items() %}
+        <a href="/lessons/{{ slug }}" class="subj-card" style="text-decoration:none;"
+           data-color="{{ sub.color }}">
+
+          <div class="subj-accent" style="background:{{ sub.color }};"></div>
+
+          <div class="subj-icon-wrap" style="background:{{ sub.bg }};">
+            <span class="material-symbols-outlined subj-icon-sym"
+              style="color:{{ sub.color }};font-variation-settings:'FILL' 1">{{ sub.icon }}</span>
+          </div>
+
+          <div class="subj-info">
+            <p class="subj-name">{{ sub.name }}</p>
+            <div class="subj-meta-row">
+              <span class="subj-tag-pill" style="background:{{ sub.bg }};color:{{ sub.color }};">{{ sub.tag }}</span>
+              <span class="subj-lesson-count">
+                <span class="material-symbols-outlined" style="font-size:0.75rem;vertical-align:-1px">play_circle</span>
+                {{ lesson_counts[slug] }} lessons
+              </span>
+            </div>
+          </div>
+
+          <div class="subj-arrow" style="background:{{ sub.bg }};color:{{ sub.color }};">
+            <span class="material-symbols-outlined" style="font-size:1.1rem">chevron_right</span>
+          </div>
+
+        </a>
+        {% endfor %}
+      </div>
+
+      <!-- ── Footer ── -->
+      <div class="subjects-footer">
+        <span class="material-symbols-outlined" style="font-size:13px;color:#18cb96;vertical-align:-2px">verified</span>
+        Summer Bridge Camp · Free Programme
+      </div>
+
+    </div>
+  </main>
+
+</div>
+{% endblock %}

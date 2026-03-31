@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}{{ subject.name }} Lessons · Summer Bridge Camp{% endblock %}
+
+{% block body %}
+<div class="lessons-page">
+
+  <!-- ── Sticky Top Bar ── -->
+  <header class="subjects-topbar"
+    style="background:linear-gradient(135deg,{{ subject.color }}dd 0%,{{ subject.color }} 100%);box-shadow:0 2px 16px {{ subject.color }}44;">
+    <div class="subjects-topbar-inner">
+      <div class="topbar-brand">
+        <a href="/subjects" class="topbar-back-btn">
+          <span class="material-symbols-outlined" style="font-size:1.2rem">arrow_back</span>
+        </a>
+        <div class="topbar-logo">
+          <span class="material-symbols-outlined" style="font-size:1.2rem;color:#fff;font-variation-settings:'FILL' 1">{{ subject.icon }}</span>
+        </div>
+        <span class="topbar-title">{{ subject.name }}</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-grade">{{ lessons|length }} Lessons</span>
+        <div class="topbar-avatar" style="color:{{ subject.color }};">{{ student.name[0] | upper }}</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Scrollable map area ── -->
+  <div class="lessons-map-wrap">
+    <div class="lessons-map-inner">
+
+      <!-- Decorative S-curve SVG path -->
+      <svg class="lessons-path-svg" viewBox="0 0 400 980" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <path
+          d="M 200 60
+             Q 310 115 310 170
+             Q 310 225 200 280
+             Q 90  335 90  390
+             Q 90  445 200 500
+             Q 310 555 310 610
+             Q 310 665 200 720
+             Q 90  775 90  830
+             Q 90  885 200 940"
+          fill="none"
+          stroke="{{ subject.color }}"
+          stroke-width="8"
+          stroke-linecap="round"
+          stroke-dasharray="1 22"
+          opacity="0.18"/>
+      </svg>
+
+      <!-- ── Lesson nodes ── -->
+      {% for lesson in lessons %}
+      {% set idx = loop.index0 %}
+
+      <div class="map-row {% if idx % 4 == 1 %}map-row-right{% elif idx % 4 == 3 %}map-row-left{% else %}map-row-center{% endif %}">
+        <div class="map-node-wrap">
+
+          {% if lesson.locked %}
+          <!-- Locked node -->
+          <div class="level-node level-locked map-node">
+            <span class="material-symbols-outlined" style="font-size:1.3rem;color:#94a3b8">lock</span>
+          </div>
+
+          {% else %}
+          <!-- Unlocked node -->
+          <a href="/{{ subject_slug }}-{{ lesson.num }}"
+            class="level-node level-active map-node {% if idx % 2 == 0 %}floating{% else %}floating-delayed{% endif %}"
+            style="background:{{ subject.color }};box-shadow:0 7px 0 0 {{ subject.color }}88,inset 0 -4px 0 0 rgba(255,255,255,0.2);text-decoration:none;"
+            aria-label="Lesson {{ lesson.num }}: {{ lesson.title }}">
+            {% if loop.first %}
+              <span class="material-symbols-outlined" style="font-size:1.7rem;color:#fff;font-variation-settings:'FILL' 1">star</span>
+            {% else %}
+              <span style="color:#fff;font-weight:700;font-size:1.85rem;font-family:'Fredoka',sans-serif;line-height:1;">{{ lesson.num }}</span>
+            {% endif %}
+          </a>
+          {% endif %}
+
+          <!-- Label -->
+          <div class="map-node-label">
+            <p class="map-node-title{% if lesson.locked %} map-node-dim{% endif %}">{{ lesson.title }}</p>
+            {% if loop.first %}
+              <span class="now-playing-badge" style="color:{{ subject.color }};border-color:{{ subject.color }}44;">★ Start Here</span>
+            {% elif lesson.locked %}
+              <p class="map-node-sub map-node-dim">Coming soon</p>
+            {% else %}
+              <p class="map-node-sub">{{ lesson.desc }}</p>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- ── Trophy node ── -->
+      <div class="map-row map-row-center">
+        <div class="map-node-wrap">
+          <div class="level-node level-trophy map-node floating" style="border-radius:20px;">
+            <span class="material-symbols-outlined" style="font-size:2.1rem;color:#94a3b8;font-variation-settings:'FILL' 1">emoji_events</span>
+          </div>
+          <div class="map-node-label">
+            <p class="map-node-title map-node-dim">Master Challenge</p>
+            <p class="map-node-sub map-node-dim">Complete all lessons</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Fixed CTA footer ── -->
+  <footer class="lessons-cta-footer">
+    <a href="/{{ subject_slug }}-1" class="btn-continue"
+      style="background:{{ subject.color }};box-shadow:0 6px 0 0 {{ subject.color }}88,inset 0 -4px 0 0 rgba(255,255,255,0.2);text-decoration:none;max-width:320px;">
+      <span class="material-symbols-outlined" style="font-size:1.2rem;font-variation-settings:'FILL' 1">play_arrow</span>
+      Start Lesson 1
+      <span class="material-symbols-outlined" style="font-size:1.2rem">arrow_forward</span>
+    </a>
+    <p class="lessons-cta-tag">
+      {{ lessons|length }} lessons · {{ subject.tag }}
+    </p>
+  </footer>
+
+</div>
+{% endblock %}
